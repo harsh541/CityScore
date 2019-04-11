@@ -2,6 +2,7 @@ import requests
 url = "https://chelseama.ogopendata.com/datastore/odata3.0/50fd4973-d1c9-4897-8b7d-092a87ebc23b?&$format=json"
 r = requests.get(url)
 data = r.json()
+print(data)
 potholes = data['value']
 scores = []
 for row in potholes:

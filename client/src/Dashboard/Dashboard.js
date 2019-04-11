@@ -15,6 +15,14 @@ const styles = {
 };
 
 class Dashboard extends Component {
+  componentDidMount() {
+    fetch("http://localhost:5000", {method: 'GET', dataType:'json'})
+      .then(r => r.json())
+      .then(r => {
+        console.log(r)
+      })
+      .catch(err => console.log(err))
+  }
   render() {
     return (
       <div style={{backgroundColor: "#FFF"}}>

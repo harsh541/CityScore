@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,9 +19,9 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(topic, day, week, month, quarter) {
+function createData(topic, day, month, year) {
   id += 1;
-  return { id, topic, day, week, month, quarter};
+  return { id, topic, day, month, year};
 }
 
 const topicNames = ['311 Response', 'Grafitti', 'Missed Trash On-Time %', 'Pothole On-Time %', 'Signal Repair On-Time %', 'Sign Installation On-Time %', 'Tree Maintenance On-Time%', 'On-Time Permit Reviews']
@@ -46,10 +45,9 @@ class ScoreTable extends Component {
               <TableHead>
                 <TableRow>
                   <TableCell>Topic</TableCell>
-                  <TableCell numeric>Day</TableCell>
-                  <TableCell numeric>Week</TableCell>
-                  <TableCell numeric>Month</TableCell>
-                  <TableCell numeric>Quarter</TableCell>
+                  <TableCell>Day</TableCell>
+                  <TableCell>Month</TableCell>
+                  <TableCell>Year</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -59,10 +57,9 @@ class ScoreTable extends Component {
                       <TableCell component="th" scope="row">
                         {row.topic}
                       </TableCell>
-                      <TableCell numeric>{row.day}</TableCell>
-                      <TableCell numeric>{row.week}</TableCell>
-                      <TableCell numeric>{row.month}</TableCell>
-                      <TableCell numeric>{row.quarter}</TableCell>
+                      <TableCell>{row.day}</TableCell>
+                      <TableCell>{row.month}</TableCell>
+                      <TableCell>{row.year}</TableCell>
                     </TableRow>
                   );
                 })}
