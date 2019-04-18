@@ -1,6 +1,7 @@
 import requests
 import json
 import requests
+import os
 
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
@@ -10,7 +11,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/data.db'
+# db_path = os.path.join(os.path.dirname(__file__), 'xlab.db')
+# db_uri = 'sqlite:///{}'.format(db_path)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 
 class ScoreData(db.Model):
@@ -30,7 +33,7 @@ class ScoreData(db.Model):
 
 def add_row():
   (pothole_day, pothole_month, pothole_year) = pothole_scores()
-  pothole_score_data = ScoreData(datetime.today(), 'Pothole', pothole_day, pothole_month, pothole_year)
+  pothole_score_data = ScoreData(datetime.now().strftime("%Y-%m-%d %H:%M"), 'does this work', pothole_day, pothole_month, pothole_year)
   db.session.add(pothole_score_data)
   db.session.commit()
 
@@ -38,19 +41,21 @@ def add_row():
 @app.route("/")
 def get_all():
   score_data = ScoreData.query.all()
+  result = []
   for row in score_data:
-    print("row", row.date, row.topic, row.day, row.month, row.year)
-  
-  result = {"passed": True}
+    curr = {'id': row.id, 'topic': row.topic, 'day': row.day, 'month': row.month, 'year': row.year}
+    result.append(curr)
+  result2 = {"passed": True}
   json_result = json.dumps(result)
+  print(result)
   return json_result
 
 
 
 if __name__ == '__main__':
-  db.create_all()
+  # db.create_all()
   add_row()
-  app.run(debug = True)
+  
 
 
 
