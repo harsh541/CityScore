@@ -18,26 +18,26 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(topic, day, month, year) {
-  id += 1;
-  return { id, topic, day, month, year};
-}
-
-const topicNames = ['311 Response', 'Grafitti', 'Missed Trash On-Time %', 'Pothole On-Time %', 'Signal Repair On-Time %', 'Sign Installation On-Time %', 'Tree Maintenance On-Time%', 'On-Time Permit Reviews']
-function getRows() {
-  const rows = [];
-  for (let i = 0; i < topicNames.length; i++) {
-    rows.push(createData(topicNames[i], Math.round(Math.random() * 100) / 100, Math.round(Math.random() * 100) / 100, Math.round(Math.random() * 100) / 100, Math.round(Math.random() * 100) / 100, Math.round(Math.random() * 100) / 100, Math.round(Math.random() * 100) / 100, Math.round(Math.random() * 100) / 100, Math.round(Math.random() * 100) / 100))
-  }
-  return rows;
-}
-
-const rows = getRows();
-
 
 class ScoreTable extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {data: []}
+  }
+  componentDidMount() {
+    fetch("http://localhost:5000", {method: 'GET', dataType:'json'})
+      .then(r => r.json())
+      .then(r => {
+        this.setState((state) => {
+          return {data: r}
+        })
+      })
+      .catch(err => console.log(err))
+  }
   render() {
+    const { data } = this.state;
+    console.log(data)
     return (
       <div>
         <Paper>
@@ -51,7 +51,7 @@ class ScoreTable extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map(row => {
+                {data.map(row => {
                   return (
                     <TableRow key={row.id}>
                       <TableCell component="th" scope="row">
