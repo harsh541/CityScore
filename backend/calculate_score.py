@@ -1,7 +1,5 @@
 import requests
-import datetime
-import sqlalchemy as db
-
+from datetime import datetime
  
 # getting current date and time, this is in UTC format
 d = datetime.today()
@@ -20,6 +18,12 @@ currentDay = d.day
 url = "https://chelseama.ogopendata.com/datastore/odata3.0/50fd4973-d1c9-4897-8b7d-092a87ebc23b?&$top=5000000&$format=json"
 r = requests.get(url)
 clickFix = r.json()
+
+# theft data
+url2 = "https://chelseama.ogopendata.com/datastore/odata3.0/fceb31a5-3ebc-48de-baf6-979cf53b7e2b?&$top=5000000&$format=json"
+r = requests.get(url2)
+r2 = r.json()
+theft = r2['value']
 
 def other_scores():
   other = [row for row in clickFix['value'] if "other" in row['Category'].lower()]
@@ -253,17 +257,14 @@ def pothole_scores():
   # print("pothole day:", pothole_scores_day)
 
     
-def CurrentRobbingStreetScore():
+def current_robbing_street_score():
     ''' Name of the function:
         Parameters: Fixed parameters include the historic data, which has a yearly avg of 131.667, monthly avg or 10.9722 or a daily avg or .36073
         Computation: Based on the data provided in the API, I subtract a year from the current day to calculate the year score, subtract a month - currentday for the month score and 24 hours - current day for the day score.
         Returns: Tuple with day, month and year score
         '''
     #calculate year score, this will be done by taking into consideration data from today's date - 1 year
-    url = "https://chelseama.ogopendata.com/datastore/odata3.0/fceb31a5-3ebc-48de-baf6-979cf53b7e2b?&$top=5000000&$format=json"
-    r = requests.get(url)
-    data = r.json()
-    theft = data['value']
+    
     #calculating year score
     YearScore = []
     for row in theft:
@@ -294,7 +295,6 @@ def CurrentRobbingStreetScore():
                 MonthScore.append(1)
             elif(int(year) == currentYear and int(month) == currentMonth -1 and int(day) >= currentDay):
                 MonthScore.append(1)
-    print(MonthScore)
     #total number of robbings this year
     TotalNumberOfRobbingMonth = len(MonthScore)
     if TotalNumberOfRobbingMonth != 0:
@@ -318,7 +318,7 @@ def CurrentRobbingStreetScore():
             elif(currentDay == 1 and int(year) == currentYear and int(month)== currentMonth - 1 and int(day) == dictDays[int(month)]):
                 DayScore.append(1)
         
-    print(DayScore)
+    # print(DayScore)
     #total number of robbings this year
     TotalNumberOfRobbingDay = len(DayScore)
     if TotalNumberOfRobbingDay != 0:
@@ -326,22 +326,23 @@ def CurrentRobbingStreetScore():
     else:
         finalDayScore = 0
     #print(finalDayScore)
+    if (finalDayScore == 0):
+      finalDayScore = None
+    if (finalMonthScore == 0):
+      finalMonthScore = None
+    
+    finalYearScore = round(finalYearScore, 3)
     return ("Robbing Street Score %", finalDayScore, finalMonthScore, finalYearScore)
 
-#CurrentRobbingStreetScore()
+#current_robbing_street_score()
 
 
-def CurrentAssaultScore():
+def current_assault_score():
     ''' Name of the function:
         Parameters: Fixed parameters include the historic data, which has a yearly avg of 861.6, monthly avg or 71.8 or a daily avg or 2.3605
         Computation: Based on the data provided in the API, I subtract a year from the current day to calculate the year score, subtract a month - currentday for the month score and 24 hours - current day for the day score.
         Returns: Tuple with day, month and year score
         '''
-    #calculate year score, this will be done by taking into consideration data from today's date - 1 year
-    url = "https://chelseama.ogopendata.com/datastore/odata3.0/fceb31a5-3ebc-48de-baf6-979cf53b7e2b?&$top=5000000&$format=json"
-    r = requests.get(url)
-    data = r.json()
-    theft = data['value']
     #calculating year score
     YearScore = []
     for row in theft:
@@ -404,20 +405,22 @@ def CurrentAssaultScore():
     else:
         finalDayScore = 0
     #print(finalDayScore)
+    if (finalDayScore == 0):
+      finalDayScore = None
+    if (finalMonthScore == 0):
+      finalMonthScore = None
+    
+    finalYearScore = round(finalYearScore, 3)
     return ("Assault Score %", finalDayScore, finalMonthScore, finalYearScore)
-#CurrentAssaultScore()
+#current_assault_score()
 
-def CurrentTheftScore():
+def current_theft_score():
     ''' Name of the function:
         Parameters: Fixed parameters include the historic data, which has a yearly avg of 517.4, monthly avg or 43.1166 or a daily avg or 1.410
         Computation: Based on the data provided in the API, I subtract a year from the current day to calculate the year score, subtract a month - currentday for the month score and 24 hours - current day for the day score.
         Returns: Tuple with day, month and year score
         '''
     #calculate year score, this will be done by taking into consideration data from today's date - 1 year
-    url = "https://chelseama.ogopendata.com/datastore/odata3.0/fceb31a5-3ebc-48de-baf6-979cf53b7e2b?&$top=5000000&$format=json"
-    r = requests.get(url)
-    data = r.json()
-    theft = data['value']
     #calculating year score
     YearScore = []
     for row in theft:
@@ -480,4 +483,10 @@ def CurrentTheftScore():
     else:
         finalDayScore = 0
     #print(finalDayScore)
+    if (finalDayScore == 0):
+      finalDayScore = None
+    if (finalMonthScore == 0):
+      finalMonthScore = None
+    
+    finalYearScore = round(finalYearScore, 3)
     return ("Theft Score %", finalDayScore, finalMonthScore, finalYearScore)
