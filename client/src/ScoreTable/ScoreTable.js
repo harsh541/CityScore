@@ -29,6 +29,15 @@ class ScoreTable extends Component {
     fetch("http://localhost:5000", {method: 'GET', dataType:'json'})
       .then(r => r.json())
       .then(r => {
+        for(let i = 0; i < r.length; i++) {
+          let row = r[i];
+          if (row.day == null) {
+            row.day = "-"
+          }
+          if (row.month == null) {
+            row.month = "-"
+          }
+        }
         this.setState((state) => {
           return {data: r}
         })
