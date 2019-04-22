@@ -23,7 +23,7 @@ def get_all():
   result = []
   for row in query_db('select * from score_data'):
     (_id, date, topic, day, month, year) = row
-    obj_data = {'topic': topic, 'day':day, 'month': month, 'year': year}
+    obj_data = {'id': _id, 'topic': topic, 'day':day, 'month': month, 'year': year}
     result.append(obj_data)
 
   data = json.dumps(result)
