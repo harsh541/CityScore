@@ -3,14 +3,22 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import TotalScore from '../TotalScore/TotalScore';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-
 import ScoresTable from '../ScoreTable/ScoreTable';
-import TotalScoreChart from '../TotalScoreChart/TotalScoreChart';
 const styles = {
   root: {
     flexGrow: 1,
+  },
+  card: {
+    minWidth: 275,
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
   },
 };
 
@@ -31,7 +39,7 @@ class Dashboard extends Component {
               Today's Score
             </Typography>
             <div style={{textAlign: "center", display: "inline-block"}}>
-              <TotalScoreChart/>
+              <TotalScore/>
             </div>
           </CardContent>
         </Card>
