@@ -21,6 +21,7 @@ City of Chelsea City Score
   ~~~
   pip install -r requirements.txt
   ~~~
+  * Run the insert_scores.py file.
   * Start the backend by using the following commands:
 
   ~~~
