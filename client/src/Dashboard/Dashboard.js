@@ -7,6 +7,8 @@ import TotalScore from '../TotalScore/TotalScore';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import ScoresTable from '../ScoreTable/ScoreTable';
+import TotalScoreChart from '../TotalScoreChart/TotalScoreChart';
+import Descriptions from '../Descriptions/Descriptions'
 const styles = {
   root: {
     flexGrow: 1,
@@ -44,6 +46,7 @@ class Dashboard extends Component {
           </CardContent>
         </Card>
         <ScoresTable/>
+        <Descriptions/>
       </div>
     )
   }
