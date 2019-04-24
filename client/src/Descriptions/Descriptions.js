@@ -17,11 +17,11 @@ const styles = theme => ({
   },
 });
 
-
-function SimpleExpansionPanel(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
+class Descriptions extends Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}>Graffitti Removal On-Time %</Typography>
@@ -93,11 +93,13 @@ function SimpleExpansionPanel(props) {
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
-  );
+    )
+  }
+  
 }
 
-SimpleExpansionPanel.propTypes = {
+Descriptions.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleExpansionPanel);
+export default withStyles(styles)(Descriptions);

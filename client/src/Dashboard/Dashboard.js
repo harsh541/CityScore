@@ -7,7 +7,6 @@ import TotalScore from '../TotalScore/TotalScore';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import ScoresTable from '../ScoreTable/ScoreTable';
-import TotalScoreChart from '../TotalScoreChart/TotalScoreChart';
 import Descriptions from '../Descriptions/Descriptions'
 const styles = {
   root: {
@@ -46,6 +45,13 @@ class Dashboard extends Component {
           </CardContent>
         </Card>
         <ScoresTable/>
+        <AppBar position="static" color="default">
+          <Toolbar>
+            <Typography variant="h7" color="inherit">
+              How are the scores calculated?
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <Descriptions/>
       </div>
     )
